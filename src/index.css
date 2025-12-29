@@ -1,0 +1,225 @@
+/* Import Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* Custom CSS Variables for System Dashboard Theme */
+@theme {
+  /* Monochrome Dark Mode Palette */
+  --color-void: #0a0a0b;
+  --color-obsidian: #111113;
+  --color-graphite: #18181b;
+  --color-steel: #27272a;
+  --color-zinc: #3f3f46;
+  --color-ash: #52525b;
+  --color-silver: #a1a1aa;
+  --color-mercury: #d4d4d8;
+  --color-snow: #fafafa;
+  
+  /* Accent Colors - Cyber Green */
+  --color-terminal: #22c55e;
+  --color-terminal-dim: #16a34a;
+  --color-terminal-glow: #4ade80;
+  
+  /* System Status Colors */
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  
+  /* Fonts */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--color-void);
+  color: var(--color-mercury);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-zinc);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ash);
+}
+
+/* Selection */
+::selection {
+  background: var(--color-terminal);
+  color: var(--color-void);
+}
+
+/* Terminal Text Glow Effect */
+.terminal-glow {
+  text-shadow: 0 0 10px var(--color-terminal-glow), 0 0 20px var(--color-terminal-glow), 0 0 30px var(--color-terminal-dim);
+}
+
+/* Grid Pattern Background */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(34, 197, 94, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 197, 94, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Scanline Effect */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Noise Texture */
+.noise::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(17, 17, 19, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.5);
+}
+
+/* Bento Grid Item */
+.bento-item {
+  background: linear-gradient(145deg, var(--color-graphite), var(--color-obsidian));
+  border: 1px solid var(--color-steel);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.bento-item:hover {
+  border-color: var(--color-terminal-dim);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);
+}
+
+/* Terminal Cursor Blink */
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: cursor-blink 1s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px var(--color-terminal), 0 0 10px var(--color-terminal-dim);
+  }
+  50% { 
+    box-shadow: 0 0 15px var(--color-terminal), 0 0 25px var(--color-terminal-dim);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Status Indicator */
+.status-online {
+  position: relative;
+}
+
+.status-online::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-terminal);
+  border-radius: 50%;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* React Flow Custom Styles */
+.react-flow__node {
+  border-radius: 8px;
+  border: 1px solid var(--color-steel);
+  background: var(--color-graphite);
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-terminal-dim);
+  stroke-width: 2;
+}
+
+.react-flow__background {
+  background: var(--color-void);
+}
+
+/* React Flow Controls */
+.react-flow__controls button {
+  background-color: var(--color-graphite) !important;
+  border-color: var(--color-steel) !important;
+  color: var(--color-silver) !important;
+}
+
+.react-flow__controls button:hover {
+  background-color: var(--color-steel) !important;
+}
+
+.react-flow__controls button svg {
+  fill: var(--color-silver) !important;
+}
+
+/* React Flow Attribution */
+.react-flow__attribution {
+  background: transparent !important;
+}
+
+.react-flow__attribution a {
+  color: var(--color-ash) !important;
+}
